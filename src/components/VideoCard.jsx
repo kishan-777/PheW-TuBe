@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { MdVerified } from 'react-icons/md';
 import { FaPlay, FaHeart, FaRegHeart, FaClock, FaCheck } from 'react-icons/fa';
 import { useApp } from '../context/AppContext';
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 
 function VideoCard({ video }) {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function VideoCard({ video }) {
       {/* Thumbnail Container */}
       <div className="thumbnail-container" onClick={handleOpenVideo}>
         <img 
-          src={video.thumbnail} 
+          src={getAssetUrl(video.thumbnail)} 
           alt={video.title} 
           className="thumbnail-img"
           loading="lazy"
@@ -54,7 +55,7 @@ function VideoCard({ video }) {
       <div className="video-info-container">
         {/* Channel Avatar */}
         <img 
-          src={video.channelAvatar} 
+          src={getAssetUrl(video.channelAvatar) || DEFAULT_AVATAR} onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }} 
           alt={video.channelName} 
           className="channel-avatar" 
           title={`Visit ${video.channelName} channel`}
@@ -141,3 +142,4 @@ function VideoCard({ video }) {
 }
 
 export default VideoCard;
+

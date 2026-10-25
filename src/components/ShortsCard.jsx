@@ -1,3 +1,4 @@
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SiYoutubeshorts } from 'react-icons/si';
@@ -17,7 +18,7 @@ function ShortsCard({ short }) {
     <div className="shorts-card">
       <div className="shorts-thumbnail-wrapper" onClick={handleOpenShort}>
         <img 
-          src={short.thumbnail} 
+          src={getAssetUrl(short.thumbnail)} 
           alt={short.title} 
           className="shorts-img"
           loading="lazy"
@@ -41,7 +42,7 @@ function ShortsCard({ short }) {
       <div className="shorts-details">
         <div className="shorts-title-row" style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
           <img 
-            src={short.channelAvatar} 
+            src={getAssetUrl(short.channelAvatar) || DEFAULT_AVATAR} onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }} 
             alt={short.channelName} 
             className="channel-img-sm"
             style={{ width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0, marginTop: '2px' }}
@@ -71,3 +72,4 @@ function ShortsCard({ short }) {
 }
 
 export default ShortsCard;
+

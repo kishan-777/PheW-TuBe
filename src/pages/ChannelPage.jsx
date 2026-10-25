@@ -6,6 +6,7 @@ import { SiYoutubeshorts } from 'react-icons/si';
 import { toast } from 'react-toastify';
 import VideoCard from '../components/VideoCard';
 import { useApp } from '../context/AppContext';
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 
 function ChannelPage() {
   const { id } = useParams();
@@ -37,7 +38,7 @@ function ChannelPage() {
       <div 
         className="channel-hero-banner"
         style={{
-          backgroundImage: `url(${channel.banner || channel.thumbnail})`,
+          backgroundImage: `url(${getAssetUrl(channel.banner) || getAssetUrl(channel.thumbnail)})`,
           backgroundSize: 'cover',
           backgroundPosition: channel.bannerPosition || 'center top',
           backgroundRepeat: 'no-repeat'
@@ -48,11 +49,11 @@ function ChannelPage() {
       <div className="channel-header-wrapper">
         <div className="channel-avatar-column">
           <img 
-            src={channel.thumbnail} 
+            src={getAssetUrl(channel.thumbnail) || DEFAULT_AVATAR} 
             alt={channel.name} 
             className="channel-large-avatar"
             onError={(e) => {
-              e.currentTarget.src = "/images/user_avatar.svg";
+              e.currentTarget.src = DEFAULT_AVATAR;
             }}
           />
         </div>
@@ -153,7 +154,7 @@ function ChannelPage() {
                     onClick={() => navigate(`/shorts?id=${short.id}`)}
                   >
                     <div className="short-thumb-box">
-                      <img src={short.thumbnail} alt={short.title} />
+                      <img src={getAssetUrl(short.thumbnail)} alt={short.title} />
                       <span className="short-views-pill">{short.views}</span>
                     </div>
                     <h4 className="short-card-title">{short.title}</h4>
@@ -195,3 +196,4 @@ function ChannelPage() {
 }
 
 export default ChannelPage;
+

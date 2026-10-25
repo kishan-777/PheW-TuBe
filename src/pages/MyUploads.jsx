@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RiVideoUploadFill, RiDeleteBin6Line, RiVideoLine } from 'react-icons/ri';
 import { FaPlay, FaEye, FaHeart } from 'react-icons/fa';
 import { useApp } from '../context/AppContext';
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 
 function MyUploads() {
   const { uploadedVideos, deleteUploadedVideo, setIsUploadOpen, currentUser } = useApp();
@@ -14,11 +15,11 @@ function MyUploads() {
       <div className="my-uploads-header-card">
         <div className="my-uploads-profile-col">
           <img 
-            src={currentUser.avatar || "/images/user_avatar.svg"} 
+            src={getAssetUrl(currentUser.avatar) || DEFAULT_AVATAR} 
             alt={currentUser.name} 
             className="my-uploads-avatar"
             onError={(e) => {
-              e.currentTarget.src = "/images/user_avatar.svg";
+              e.currentTarget.src = DEFAULT_AVATAR;
             }}
           />
           <div>
@@ -65,7 +66,7 @@ function MyUploads() {
                 className="my-upload-thumb-wrapper"
                 onClick={() => navigate(`/watch/${video.slug || video.id}`)}
               >
-                <img src={video.thumbnail} alt={video.title} className="my-upload-thumb-img" />
+                <img src={getAssetUrl(video.thumbnail)} alt={video.title} className="my-upload-thumb-img" />
                 <span className="my-upload-duration">{video.duration}</span>
                 <div className="my-upload-play-hover">
                   <FaPlay size={16} />
@@ -123,3 +124,4 @@ function MyUploads() {
 }
 
 export default MyUploads;
+

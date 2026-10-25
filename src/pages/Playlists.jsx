@@ -1,3 +1,4 @@
+import { getAssetUrl } from '../utils/assetUrl';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineWatchLater } from 'react-icons/md';
@@ -29,7 +30,7 @@ function Playlists() {
         >
           <div className="playlist-thumb-box">
             <img 
-              src={watchLaterVideos[0]?.thumbnail || videos[0].thumbnail} 
+              src={getAssetUrl(watchLaterVideos[0]?.thumbnail || videos[0].thumbnail)} 
               alt="Watch Later" 
               className="playlist-box-img"
             />
@@ -57,7 +58,7 @@ function Playlists() {
         >
           <div className="playlist-thumb-box">
             <img 
-              src={likedVideos[0]?.thumbnail || videos[1].thumbnail} 
+              src={getAssetUrl(likedVideos[0]?.thumbnail || videos[1].thumbnail)} 
               alt="Liked Videos" 
               className="playlist-box-img"
             />
@@ -130,3 +131,4 @@ function Playlists() {
 }
 
 export default Playlists;
+

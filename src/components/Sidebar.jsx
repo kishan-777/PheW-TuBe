@@ -1,3 +1,4 @@
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
@@ -148,7 +149,7 @@ function Sidebar() {
                   style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1, cursor: 'pointer', overflow: 'hidden' }}
                 >
                   <img 
-                    src={channel.thumbnail} 
+                    src={getAssetUrl(channel.thumbnail) || DEFAULT_AVATAR} onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }} 
                     alt={channel.name} 
                     className="channel-img-sm"
                   />
@@ -288,3 +289,4 @@ function Sidebar() {
 }
 
 export default Sidebar;
+

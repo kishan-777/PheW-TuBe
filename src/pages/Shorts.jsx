@@ -1,3 +1,4 @@
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 import React, { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SiYoutubeshorts } from 'react-icons/si';
@@ -96,7 +97,7 @@ function Shorts() {
                 ) : (
                   <>
                     <img 
-                      src={short.thumbnail} 
+                      src={getAssetUrl(short.thumbnail)} 
                       alt={short.title} 
                       className="shorts-full-img"
                     />
@@ -121,7 +122,7 @@ function Shorts() {
                     <div className="shorts-overlay-bottom">
                       <div className="shorts-channel-row">
                         <img 
-                          src={short.channelAvatar} 
+                          src={getAssetUrl(short.channelAvatar) || DEFAULT_AVATAR} onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }} 
                           alt={short.channelName} 
                           className="shorts-channel-pic"
                         />
@@ -161,7 +162,7 @@ function Shorts() {
                     <div className="shorts-comments-body">
                       {shortComments.map((cmt) => (
                         <div key={cmt.id} className="shorts-comment-row">
-                          <img src={cmt.avatar} alt={cmt.author} className="shorts-cmt-avatar" />
+                          <img src={getAssetUrl(cmt.avatar) || DEFAULT_AVATAR} onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }} alt={cmt.author} className="shorts-cmt-avatar" />
                           <div className="shorts-cmt-content">
                             <div className="shorts-cmt-meta">
                               <strong>{cmt.author}</strong>
@@ -242,3 +243,4 @@ function Shorts() {
 }
 
 export default Shorts;
+

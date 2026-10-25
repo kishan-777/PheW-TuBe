@@ -1,3 +1,4 @@
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import VideoCard from '../components/VideoCard';
@@ -33,7 +34,7 @@ function Subscriptions() {
                 title={`Visit ${ch.name}'s channel page`}
               >
                 <div className="sub-tile-avatar-wrapper">
-                  <img src={ch.thumbnail} alt={ch.name} className="sub-tile-avatar" />
+                  <img src={getAssetUrl(ch.thumbnail) || DEFAULT_AVATAR} onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }} alt={ch.name} className="sub-tile-avatar" />
                   <span className="sub-tile-online-dot" title="Active creator"></span>
                 </div>
 
@@ -87,3 +88,4 @@ function Subscriptions() {
 }
 
 export default Subscriptions;
+

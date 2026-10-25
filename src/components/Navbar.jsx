@@ -13,6 +13,7 @@ import { RiVideoAddLine } from 'react-icons/ri';
 import { FaYoutube, FaUserCircle, FaSignOutAlt, FaSearch } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useApp } from '../context/AppContext';
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 
 function Navbar() {
   const { 
@@ -295,11 +296,11 @@ function Navbar() {
               onClick={() => setShowUserMenu(!showUserMenu)}
             >
               <img 
-                src={currentUser.avatar || "/images/user_avatar.svg"} 
+                src={getAssetUrl(currentUser.avatar) || DEFAULT_AVATAR} 
                 alt="User Avatar" 
                 className="user-avatar"
                 onError={(e) => {
-                  e.currentTarget.src = "/images/user_avatar.svg";
+                  e.currentTarget.src = DEFAULT_AVATAR;
                 }}
               />
             </div>
@@ -350,3 +351,4 @@ function Navbar() {
 }
 
 export default Navbar;
+

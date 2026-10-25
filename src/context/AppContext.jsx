@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { VIDEOS, SHORTS, CATEGORIES, CHANNELS, INITIAL_COMMENTS, slugify } from '../data/videoData';
 import { fetchLiveYouTubeVideos } from '../services/youtubeApi';
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 
 const AppContext = createContext();
 
@@ -75,14 +76,14 @@ export function AppProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(() => {
     try {
       const saved = localStorage.getItem('phew_current_user');
-      return saved ? JSON.parse(saved) : {
+      if (saved) { const parsed = JSON.parse(saved); if (parsed.avatar) parsed.avatar = getAssetUrl(parsed.avatar); return parsed; } return {
         name: 'G15 Student',
         email: 'g15@chitkara.edu.in',
-        avatar: '/images/user_avatar.svg',
+        avatar: DEFAULT_AVATAR,
         isLoggedIn: false
       };
     } catch {
-      return { name: 'G15 Student', email: 'g15@chitkara.edu.in', avatar: '/images/user_avatar.svg', isLoggedIn: false };
+      return { name: 'G15 Student', email: 'g15@chitkara.edu.in', avatar: DEFAULT_AVATAR, isLoggedIn: false };
     }
   });
 
@@ -279,7 +280,7 @@ export function AppProvider({ children }) {
       views: '0 views',
       timestamp: 'Just now',
       channelName: currentUser.isLoggedIn ? currentUser.name : 'Group G15 (You)',
-      channelAvatar: currentUser.isLoggedIn ? currentUser.avatar : '/images/user_avatar.svg',
+      channelAvatar: currentUser.isLoggedIn ? getAssetUrl(currentUser.avatar) : DEFAULT_AVATAR,
       channelId: 'ch_user',
       category: newVideo.category || 'React JS',
       videoUrl: newVideo.videoUrl || 'https://www.youtube.com/watch?v=k3G_n_L2B3g',
@@ -333,7 +334,7 @@ export function AppProvider({ children }) {
     const newComment = {
       id: 'c_' + Date.now(),
       author: currentUser.isLoggedIn ? currentUser.name : 'Chitkara Student (Guest)',
-      avatar: currentUser.isLoggedIn ? currentUser.avatar : '/images/user_avatar.svg',
+      avatar: currentUser.isLoggedIn ? getAssetUrl(currentUser.avatar) : DEFAULT_AVATAR,
       timestamp: 'Just now',
       text: text.trim(),
       likes: 0,
@@ -353,7 +354,7 @@ export function AppProvider({ children }) {
     setCurrentUser({
       name: userData.name || 'G15 Team Member',
       email: userData.email,
-      avatar: '/images/user_avatar.svg',
+      avatar: DEFAULT_AVATAR,
       isLoggedIn: true
     });
     setIsAuthModalOpen(false);
@@ -365,7 +366,7 @@ export function AppProvider({ children }) {
     setCurrentUser({
       name: 'Guest User',
       email: '',
-      avatar: '/images/user_avatar.svg',
+      avatar: DEFAULT_AVATAR,
       isLoggedIn: false
     });
     toast.info('Logged out successfully. You can sign in with another account.', { toastId: 'logout_info' });
@@ -437,3 +438,4 @@ export function useApp() {
   return context;
 }
 export default AppContext;
+

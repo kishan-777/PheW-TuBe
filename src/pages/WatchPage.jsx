@@ -12,6 +12,7 @@ import {
 } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useApp } from '../context/AppContext';
+import { getAssetUrl, DEFAULT_AVATAR } from '../utils/assetUrl';
 
 function WatchPage() {
   const { id } = useParams();
@@ -119,7 +120,7 @@ function WatchPage() {
             title={`Visit ${currentVideo.channelName} Channel Page`}
           >
             <img 
-              src={currentVideo.channelAvatar} 
+              src={getAssetUrl(currentVideo.channelAvatar) || DEFAULT_AVATAR} onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }} 
               alt={currentVideo.channelName} 
               className="watch-channel-avatar"
             />
@@ -211,11 +212,11 @@ function WatchPage() {
           {/* Comment Form (Controlled with useRef auto-focus) */}
           <form onSubmit={handleCommentSubmit} className="comment-input-form">
             <img 
-              src={currentUser.avatar || "/images/user_avatar.svg"} 
+              src={getAssetUrl(currentUser.avatar) || DEFAULT_AVATAR} 
               alt={currentUser.name} 
               className="comment-author-avatar"
               onError={(e) => {
-                e.currentTarget.src = "/images/user_avatar.svg";
+                e.currentTarget.src = DEFAULT_AVATAR;
               }}
             />
             <div className="comment-field-wrapper">
@@ -255,7 +256,7 @@ function WatchPage() {
             ) : (
               sortedComments.map((comment) => (
                 <div key={comment.id} className="comment-item">
-                  <img src={comment.avatar} alt={comment.author} className="comment-item-avatar" />
+                  <img src={getAssetUrl(comment.avatar) || DEFAULT_AVATAR} onError={(e) => { e.currentTarget.src = DEFAULT_AVATAR; }} alt={comment.author} className="comment-item-avatar" />
                   <div className="comment-item-content">
                     <div className="comment-meta">
                       <span className="comment-author">{comment.author}</span>
@@ -334,7 +335,7 @@ function WatchPage() {
               onClick={() => navigate(`/watch/${item.slug || item.id}`)}
             >
               <div className="recommendation-thumb-wrapper">
-                <img src={item.thumbnail} alt={item.title} className="recommendation-thumb" />
+                <img src={getAssetUrl(item.thumbnail)} alt={item.title} className="recommendation-thumb" />
                 <span className="recommendation-duration">{item.duration}</span>
                 <div className="recommendation-play-hover">
                   <FaPlay size={10} color="#fff" />
@@ -361,3 +362,4 @@ function WatchPage() {
 }
 
 export default WatchPage;
+
