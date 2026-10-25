@@ -1,5 +1,6 @@
-# YouTube Platform - Front End Engineering Evaluation (FEE-II)
+# PheW-TuBe 🎬
 
+> **Live Demo**: [https://kishan-777.github.io/PheW-TuBe/](https://kishan-777.github.io/PheW-TuBe/)  
 > **Course**: Front End Engineering - II (`25CSE0203`)  
 > **Project ID**: `G15-PID-17` (P-17)  
 > **Group**: `G15` | B.E. CSE (Batch 2025) 3rd Semester  
@@ -19,16 +20,22 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/kishan-777/Front-End-Engineering_Evaluation-based-project.git
+git clone https://github.com/kishan-777/PheW-TuBe.git
 
 # 2. Navigate to project folder
-cd Front-End-Engineering_Evaluation-based-project
+cd PheW-TuBe
 
 # 3. Install dependencies
 npm install
 
 # 4. Start local development server
 npm run dev
+
+# 5. Build for production
+npm run build
+
+# 6. Deploy to GitHub Pages (optional manual deploy)
+npm run deploy
 ```
 
 Visit `http://localhost:5173/` in your browser.
@@ -38,7 +45,7 @@ Visit `http://localhost:5173/` in your browser.
 ## 🛠️ Tech Stack & Syllabus Alignment
 * **React 19** (`react`, `react-dom`)
 * **Vite 8** (Lightning-fast build tool & dev server)
-* **React Router DOM 7** (`BrowserRouter`, `Routes`, `Route`, `Link`, `useLocation`)
+* **React Router DOM 7** (`HashRouter`, `Routes`, `Route`, `Link`, `useLocation`)
 * **React Icons 5** (Material Design `react-icons/md`, FontAwesome `react-icons/fa`, Simple Icons `react-icons/si`)
 * **Pure Modern CSS** (CSS Grid, Flexbox, Media Queries, CSS Variables)
 
